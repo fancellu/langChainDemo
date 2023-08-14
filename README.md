@@ -33,6 +33,10 @@ Another way to do simply chaining
 
 How to supply extra tools/plugins/agents to llm to perform certain functionality
 
+### duckduckgo_wikipedia.py
+
+Another example of action agents 
+
 ### plan.py
 
 Complex PlanAndExecute agent example
