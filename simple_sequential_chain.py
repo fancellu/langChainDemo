@@ -18,6 +18,6 @@ if __name__ == '__main__':
 
     second_chain = LLMChain(llm=llm, prompt=second_prompt)
 
-    sss = SimpleSequentialChain(chains=[first_chain, second_chain], verbose=True)
+    sss = SimpleSequentialChain(chains=[first_chain, second_chain], verbose=False)
 
     print(sss.run("Gaming Mice"))
