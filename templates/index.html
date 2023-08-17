@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+        }
+        #chat-container {
+            width: 70%; /* Adjust the width as needed */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        #chat-box {
+            height: 300px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            overflow-y: scroll;
+        }
+        #user-input {
+            width: 100%;
+            padding: 5px;
+        }
+        #send-btn {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-box"></div>
+        <input type="text" id="user-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+        <button id="send-btn">Send</button>
+    </div>
+
+     <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInputElement = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-btn');
+
+        sendButton.addEventListener('click', () => {
+            sendMessage()
+        });
+
+        function appendMessage(sender, message) {
+            const messageElement = document.createElement('div');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendMessage(){
+            const userMessage = userInputElement.value;
+            if (userMessage.trim() !== '') {
+                appendMessage('You', userMessage);
+                userInputElement.value = '';
+
+                // Send the user message to the backend and receive a response
+                fetch('/get_response', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ input: userMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const botReply = data.reply;
+                    appendMessage('Bot', botReply);
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function handleKeyPress(event) {
+        if (event.keyCode === 13) { // Enter key
+            event.preventDefault(); // Prevent the default behavior (line break)
+            sendMessage(); // Call the function to send the user message
+        }
+    }
+    </script>
+</body>
+</html>

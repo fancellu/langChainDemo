@@ -1,5 +1,3 @@
-import os
-
 from langchain.llms import HuggingFaceHub
 
 if __name__ == '__main__':
