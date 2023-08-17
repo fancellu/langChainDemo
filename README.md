@@ -106,3 +106,5 @@ President Trump states that since he took office, the U.S. economy has improved,
 
 ### [flask_documentQA.py](documentQA.py)
 Same as above, but with a web UI
+
+![Screenshot](/2023-08-17_17-59-46.png?raw=true "Screenshot")
