@@ -105,6 +105,6 @@ President Trump states that since he took office, the U.S. economy has improved,
 ```
 
 ### [flask_documentQA.py](documentQA.py)
-Same as above, but with a web UI
+As above, but with a web UI. I also added in a PDF about cats, so you can ask about cats too
 
 ![Screenshot](/2023-08-17_17-59-46.png?raw=true "Screenshot")

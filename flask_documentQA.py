@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from langchain.chains import RetrievalQA
-from langchain.document_loaders import TextLoader
+from langchain.document_loaders import TextLoader, PyPDFLoader
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
@@ -37,7 +37,10 @@ if __name__ == "__main__":
 
     embeddings = OpenAIEmbeddings()
 
-    store = Chroma.from_documents(texts, embeddings, collection_name="2020_state_of_the_union")
+    loader = PyPDFLoader("cats.pdf")
+    pages = loader.load_and_split()
+
+    store = Chroma.from_documents(texts + pages, embeddings, collection_name="2020_state_of_the_union_cats")
 
     llm = OpenAI(temperature=0)
     chain = RetrievalQA.from_chain_type(llm, retriever=store.as_retriever())
