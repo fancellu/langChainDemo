@@ -4,6 +4,10 @@
 
 ```pip install -r requirements.txt```
 
+## Tutorial
+
+[Tutorial](tutorial/index.md)
+
 ## To run
 
 Make sure you have environmental variable setup for OpenAI and HuggingFace API keys
